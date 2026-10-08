@@ -1,49 +1,52 @@
-# NexoriaSuite
+# NexoriaCore
 
-High-performance, asynchronous server architectures and developer APIs for Paper, Purpur, and Folia servers running on Java 25+.
-
----
-
-## Overview
-
-NexoriaSuite is a modular ecosystem of 30 plugins designed with a zero-bloat philosophy:
-
-* **Native Folia & Multi-threading**: Automatic environment detection bridging regional schedulers without blocking the main server thread.
-* **Adventure MiniMessage**: Dynamic text formatting, gradients, and interactive components.
-* **High Concurrency**: Thread-safe collections and non-blocking session registries.
+Asynchronous foundation, multi-threaded regional scheduler bridge, and developer utility API for modern Paper, Purpur, and Folia Minecraft servers running on Java 25+.
 
 ---
 
-## Projects in this Suite
+## Features
 
-| Project | Summary |
-| :--- | :--- |
-| **NexoriaCore** | Asynchronous engine and Folia scheduler compatibility bridge. |
-| **NexoriaAdventure** | MiniMessage formatting, dynamic gradients, actionbars, and bossbars. |
-| **NexoriaMenu** | Reactive inventory GUI builder with automatic pagination. |
-| **NexoriaEconomy** | Multi-currency economy engine with Vault bridge. |
-| **NexoriaSync** | Real-time Redis cross-server synchronization. |
-| **NexoriaDatabase** | HikariCP asynchronous connection pool manager. |
-| **NexoriaScoreboard** | Zero-flicker packet-based scoreboard and tablist. |
-| **NexoriaChat** | Multi-channel chat formatter with mentions and filters. |
-| **NexoriaCombat** | Combat log prevention and floating damage indicators. |
-| **NexoriaClaims** | Chunk-based land protection with trust permissions. |
-| *(and 20 more modular plugins)* | |
+* **Multi-threaded Folia & Paper Support**: Automatic environment detection bridging regional schedulers without blocking the main server thread.
+* **Java 25 Architecture**: Built using immutable records and high-throughput concurrent session registries.
+* **Non-blocking Concurrency**: Non-blocking player session tracking and event handling.
+* **Developer API**: Clean programmatic endpoints for runtime health checks and asynchronous task execution.
 
 ---
 
-## Building from Source
+## Commands & Permissions
 
-This project uses Gradle with Java 25:
+* `/core status` — Displays runtime health and active session counters.
+* `/core reload` — Reloads configuration settings in real-time.
+  * Admin node: `nexoria.core.admin` (Default: OP)
+  * Player node: `nexoria.core.use` (Default: Everyone)
 
-```bash
-./gradlew build
+---
+
+## Developer API Integration
+
+### Gradle (Kotlin DSL)
+```kotlin
+repositories {
+    maven("https://api.modrinth.com/maven")
+}
+
+dependencies {
+    compileOnly("maven.modrinth:nexoria-core:1.0.0")
+}
 ```
 
-Compiled `.jar` binaries will be generated inside the `dist/` directory.
+### Java Usage
+```java
+NexoriaCoreAPI api = NexoriaCorePlugin.getInstance().getApi();
+
+if (api.isActive()) {
+    var health = api.getStatus();
+    System.out.println("NexoriaCore running: " + health.service());
+}
+```
 
 ---
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. Anyone who modifies or redistributes this software must provide attribution, keep it open-source, and distribute under the same license terms.

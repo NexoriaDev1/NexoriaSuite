@@ -1,34 +1,3 @@
-rootProject.name = "NexoriaSuite"
+rootProject.name = "NexoriaCore"
 
-include(
-    "nexoria-core",
-    "nexoria-adventure",
-    "nexoria-menu",
-    "nexoria-economy",
-    "nexoria-sync",
-    "nexoria-database",
-    "nexoria-scoreboard",
-    "nexoria-chat",
-    "nexoria-combat",
-    "nexoria-claims",
-    "nexoria-quests",
-    "nexoria-nbt",
-    "nexoria-holograms",
-    "nexoria-vanish",
-    "nexoria-rtp",
-    "nexoria-warps",
-    "nexoria-antigrief",
-    "nexoria-customcraft",
-    "nexoria-skills",
-    "nexoria-shops",
-    "nexoria-particles",
-    "nexoria-cooldowns",
-    "nexoria-punish",
-    "nexoria-loot",
-    "nexoria-spawners",
-    "nexoria-announcer",
-    "nexoria-customitems",
-    "nexoria-afk",
-    "nexoria-worldguard-bridge",
-    "nexoria-metrics"
-)
+include("nexoria-core")
