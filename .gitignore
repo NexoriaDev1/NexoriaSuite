@@ -1,4 +1,4 @@
-# Ignore other submodules for public release (kept locally)
+# Unreleased plugins kept locally
 nexoria-adventure/
 nexoria-afk/
 nexoria-announcer/
@@ -29,52 +29,20 @@ nexoria-vanish/
 nexoria-warps/
 nexoria-worldguard-bridge/
 
-# Temporary and build scripts
-build_dist.js
-compile_all.js
-generate_suite.js
-refactor_english_java25.js
-update_suite_java25.js
-clean_emojis.js
-build_all.js
+# Metadata and internal utility files
+**/MODRINTH_METADATA.md
 MODRINTH_MASTER_CATALOG.md
 MODRINTH_PROFILE_BIO.md
+*.js
+*.svg
+*.jpg
+*.png
+dist/
 
-# Binaries and build outputs
+# Build artifacts and temp files
 bin/
 build_stubs/
 build_stubs_classes/
 .gradle/
 build/
 *.class
-
-# Keep only NexoriaCore jar in dist for this release
-dist/NexoriaAdventure-1.0.0.jar
-dist/NexoriaAfk-1.0.0.jar
-dist/NexoriaAnnouncer-1.0.0.jar
-dist/NexoriaAntigrief-1.0.0.jar
-dist/NexoriaChat-1.0.0.jar
-dist/NexoriaClaims-1.0.0.jar
-dist/NexoriaCombat-1.0.0.jar
-dist/NexoriaCooldowns-1.0.0.jar
-dist/NexoriaCustomcraft-1.0.0.jar
-dist/NexoriaCustomitems-1.0.0.jar
-dist/NexoriaDatabase-1.0.0.jar
-dist/NexoriaEconomy-1.0.0.jar
-dist/NexoriaHolograms-1.0.0.jar
-dist/NexoriaLoot-1.0.0.jar
-dist/NexoriaMenu-1.0.0.jar
-dist/NexoriaMetrics-1.0.0.jar
-dist/NexoriaNbt-1.0.0.jar
-dist/NexoriaParticles-1.0.0.jar
-dist/NexoriaPunish-1.0.0.jar
-dist/NexoriaQuests-1.0.0.jar
-dist/NexoriaRtp-1.0.0.jar
-dist/NexoriaScoreboard-1.0.0.jar
-dist/NexoriaShops-1.0.0.jar
-dist/NexoriaSkills-1.0.0.jar
-dist/NexoriaSpawners-1.0.0.jar
-dist/NexoriaSync-1.0.0.jar
-dist/NexoriaVanish-1.0.0.jar
-dist/NexoriaWarps-1.0.0.jar
-dist/NexoriaWorldguardBridge-1.0.0.jar
