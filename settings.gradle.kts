@@ -1,3 +1,6 @@
-rootProject.name = "NexoriaCore"
+rootProject.name = "NexoriaSuite"
 
-include("nexoria-core")
+include(
+    "nexoria-core",
+    "nexoria-economy"
+)
