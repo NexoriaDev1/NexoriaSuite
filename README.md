@@ -1,52 +1,36 @@
-# NexoriaCore
+# NexoriaSuite
 
-Asynchronous foundation, multi-threaded regional scheduler bridge, and developer utility API for modern Paper, Purpur, and Folia Minecraft servers running on Java 25+.
-
----
-
-## Features
-
-* **Multi-threaded Folia & Paper Support**: Automatic environment detection bridging regional schedulers without blocking the main server thread.
-* **Java 25 Architecture**: Built using immutable records and high-throughput concurrent session registries.
-* **Non-blocking Concurrency**: Non-blocking player session tracking and event handling.
-* **Developer API**: Clean programmatic endpoints for runtime health checks and asynchronous task execution.
+Modular, high-performance plugin ecosystem and developer APIs for Paper, Purpur, and Folia servers running on Java 25+.
 
 ---
 
-## Commands & Permissions
+## Ecosystem Modules
 
-* `/core status` — Displays runtime health and active session counters.
-* `/core reload` — Reloads configuration settings in real-time.
-  * Admin node: `nexoria.core.admin` (Default: OP)
-  * Player node: `nexoria.core.use` (Default: Everyone)
+### 1. NexoriaCore
+* **Type**: Core Foundation / Library
+* **Description**: Asynchronous task framework and Folia multi-threaded regional scheduler bridge.
+* **Module Path**: `nexoria-core/`
+
+### 2. NexoriaEconomy
+* **Type**: Economy Engine
+* **Description**: High-throughput multi-currency system with native Vault provider support and atomic transaction safety.
+* **Module Path**: `nexoria-economy/`
+* **Dependencies**: Requires `NexoriaCore`.
 
 ---
 
-## Developer API Integration
+## Building from Source
 
-### Gradle (Kotlin DSL)
-```kotlin
-repositories {
-    maven("https://api.modrinth.com/maven")
-}
+This project uses Gradle with Java 25 toolchains.
 
-dependencies {
-    compileOnly("maven.modrinth:nexoria-core:1.0.0")
-}
+```bash
+./gradlew build
 ```
 
-### Java Usage
-```java
-NexoriaCoreAPI api = NexoriaCorePlugin.getInstance().getApi();
-
-if (api.isActive()) {
-    var health = api.getStatus();
-    System.out.println("NexoriaCore running: " + health.service());
-}
-```
+Compiled `.jar` binaries will be output to their respective build directories.
 
 ---
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. Anyone who modifies or redistributes this software must provide attribution, keep it open-source, and distribute under the same license terms.
+This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. Redistribution and modifications require attribution and must remain open source under the same license terms.
