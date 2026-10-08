@@ -1,0 +1,22 @@
+name: NexoriaVanish
+version: '1.0.0'
+main: dev.nexoria.vanish.NexoriaVanishPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Complete staff stealth system with packet hides, fake join/leave messages, and silent container open."
+website: https://modrinth.com/plugin/nexoria-vanish
+
+commands:
+  vanish:
+    description: Primary command entrypoint for NexoriaVanish
+    permission: nexoria.vanish.use
+    aliases: [vanish]
+
+permissions:
+  nexoria.vanish.admin:
+    description: Full administration privileges for NexoriaVanish
+    default: op
+  nexoria.vanish.use:
+    description: Standard player privileges for NexoriaVanish
+    default: true

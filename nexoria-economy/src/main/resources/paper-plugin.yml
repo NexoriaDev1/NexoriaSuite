@@ -1,0 +1,22 @@
+name: NexoriaEconomy
+version: '1.0.0'
+main: dev.nexoria.economy.NexoriaEconomyPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Modern multi-currency economy engine with Vault bridge, transaction logs, and interactive bank GUI."
+website: https://modrinth.com/plugin/nexoria-economy
+
+commands:
+  balance:
+    description: Primary command entrypoint for NexoriaEconomy
+    permission: nexoria.economy.use
+    aliases: [economy]
+
+permissions:
+  nexoria.economy.admin:
+    description: Full administration privileges for NexoriaEconomy
+    default: op
+  nexoria.economy.use:
+    description: Standard player privileges for NexoriaEconomy
+    default: true

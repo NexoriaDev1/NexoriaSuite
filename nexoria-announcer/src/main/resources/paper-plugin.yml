@@ -1,0 +1,22 @@
+name: NexoriaAnnouncer
+version: '1.0.0'
+main: dev.nexoria.announcer.NexoriaAnnouncerPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Scheduled broadcasts, sound chimes, and automatic interactive chat announcements."
+website: https://modrinth.com/plugin/nexoria-announcer
+
+commands:
+  announcer:
+    description: Primary command entrypoint for NexoriaAnnouncer
+    permission: nexoria.announcer.use
+    aliases: [announcer]
+
+permissions:
+  nexoria.announcer.admin:
+    description: Full administration privileges for NexoriaAnnouncer
+    default: op
+  nexoria.announcer.use:
+    description: Standard player privileges for NexoriaAnnouncer
+    default: true

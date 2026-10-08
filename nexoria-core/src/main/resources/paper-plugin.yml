@@ -1,0 +1,22 @@
+name: NexoriaCore
+version: '1.0.0'
+main: dev.nexoria.core.NexoriaCorePlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Asynchronous task framework and multi-threaded scheduler bridge for Paper and Folia."
+website: https://modrinth.com/plugin/nexoria-core
+
+commands:
+  core:
+    description: Primary command entrypoint for NexoriaCore
+    permission: nexoria.core.use
+    aliases: [core]
+
+permissions:
+  nexoria.core.admin:
+    description: Full administration privileges for NexoriaCore
+    default: op
+  nexoria.core.use:
+    description: Standard player privileges for NexoriaCore
+    default: true

@@ -1,0 +1,22 @@
+name: NexoriaWorldGuardBridge
+version: '1.0.0'
+main: dev.nexoria.worldguard.NexoriaWorldGuardBridgePlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Seamless custom flag registration and region integration bridge for WorldGuard and Paper/Folia."
+website: https://modrinth.com/plugin/nexoria-worldguard-bridge
+
+commands:
+  wgbridge:
+    description: Primary command entrypoint for NexoriaWorldGuardBridge
+    permission: nexoria.worldguard.use
+    aliases: [worldguard]
+
+permissions:
+  nexoria.worldguard.admin:
+    description: Full administration privileges for NexoriaWorldGuardBridge
+    default: op
+  nexoria.worldguard.use:
+    description: Standard player privileges for NexoriaWorldGuardBridge
+    default: true

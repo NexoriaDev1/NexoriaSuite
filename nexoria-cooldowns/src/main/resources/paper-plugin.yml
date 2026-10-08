@@ -1,0 +1,22 @@
+name: NexoriaCooldowns
+version: '1.0.0'
+main: dev.nexoria.cooldowns.NexoriaCooldownsPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Universal async cooldown and rate-limiter API with persistent storage and visual countdown formats."
+website: https://modrinth.com/plugin/nexoria-cooldowns
+
+commands:
+  cooldown:
+    description: Primary command entrypoint for NexoriaCooldowns
+    permission: nexoria.cooldowns.use
+    aliases: [cooldowns]
+
+permissions:
+  nexoria.cooldowns.admin:
+    description: Full administration privileges for NexoriaCooldowns
+    default: op
+  nexoria.cooldowns.use:
+    description: Standard player privileges for NexoriaCooldowns
+    default: true

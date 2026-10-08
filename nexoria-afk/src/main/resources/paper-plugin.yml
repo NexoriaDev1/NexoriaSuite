@@ -1,0 +1,22 @@
+name: NexoriaAFK
+version: '1.0.0'
+main: dev.nexoria.afk.NexoriaAFKPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Smart AFK detection with rewards pool, immune permissions, and auto-actions."
+website: https://modrinth.com/plugin/nexoria-afk
+
+commands:
+  afk:
+    description: Primary command entrypoint for NexoriaAFK
+    permission: nexoria.afk.use
+    aliases: [afk]
+
+permissions:
+  nexoria.afk.admin:
+    description: Full administration privileges for NexoriaAFK
+    default: op
+  nexoria.afk.use:
+    description: Standard player privileges for NexoriaAFK
+    default: true

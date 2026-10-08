@@ -1,0 +1,22 @@
+name: NexoriaAdventure
+version: '1.0.0'
+main: dev.nexoria.adventure.NexoriaAdventurePlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "High-throughput MiniMessage formatting suite, gradient builders, actionbars, and bossbars."
+website: https://modrinth.com/plugin/nexoria-adventure
+
+commands:
+  adventure:
+    description: Primary command entrypoint for NexoriaAdventure
+    permission: nexoria.adventure.use
+    aliases: [adventure]
+
+permissions:
+  nexoria.adventure.admin:
+    description: Full administration privileges for NexoriaAdventure
+    default: op
+  nexoria.adventure.use:
+    description: Standard player privileges for NexoriaAdventure
+    default: true

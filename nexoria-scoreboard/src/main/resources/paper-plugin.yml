@@ -1,0 +1,22 @@
+name: NexoriaScoreboard
+version: '1.0.0'
+main: dev.nexoria.scoreboard.NexoriaScoreboardPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Zero-flicker packet-based scoreboard, actionbar, and dynamic animated tablist manager."
+website: https://modrinth.com/plugin/nexoria-scoreboard
+
+commands:
+  sidebar:
+    description: Primary command entrypoint for NexoriaScoreboard
+    permission: nexoria.scoreboard.use
+    aliases: [scoreboard]
+
+permissions:
+  nexoria.scoreboard.admin:
+    description: Full administration privileges for NexoriaScoreboard
+    default: op
+  nexoria.scoreboard.use:
+    description: Standard player privileges for NexoriaScoreboard
+    default: true

@@ -1,0 +1,22 @@
+name: NexoriaMenu
+version: '1.0.0'
+main: dev.nexoria.menu.NexoriaMenuPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Reactive inventory GUI builder with automatic pagination, async item updates, and sound triggers."
+website: https://modrinth.com/plugin/nexoria-menu
+
+commands:
+  menu:
+    description: Primary command entrypoint for NexoriaMenu
+    permission: nexoria.menu.use
+    aliases: [menu]
+
+permissions:
+  nexoria.menu.admin:
+    description: Full administration privileges for NexoriaMenu
+    default: op
+  nexoria.menu.use:
+    description: Standard player privileges for NexoriaMenu
+    default: true

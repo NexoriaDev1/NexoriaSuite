@@ -1,0 +1,22 @@
+name: NexoriaAntiGrief
+version: '1.0.0'
+main: dev.nexoria.antigrief.NexoriaAntiGriefPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Asynchronous block logger, container inspector, and rollback engine for server security."
+website: https://modrinth.com/plugin/nexoria-antigrief
+
+commands:
+  rollback:
+    description: Primary command entrypoint for NexoriaAntiGrief
+    permission: nexoria.antigrief.use
+    aliases: [antigrief]
+
+permissions:
+  nexoria.antigrief.admin:
+    description: Full administration privileges for NexoriaAntiGrief
+    default: op
+  nexoria.antigrief.use:
+    description: Standard player privileges for NexoriaAntiGrief
+    default: true

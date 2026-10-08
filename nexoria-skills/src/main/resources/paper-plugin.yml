@@ -1,0 +1,22 @@
+name: NexoriaSkills
+version: '1.0.0'
+main: dev.nexoria.skills.NexoriaSkillsPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Lightweight RPG leveling system with passive perks, stat scaling, and actionbar level notifications."
+website: https://modrinth.com/plugin/nexoria-skills
+
+commands:
+  skills:
+    description: Primary command entrypoint for NexoriaSkills
+    permission: nexoria.skills.use
+    aliases: [skills]
+
+permissions:
+  nexoria.skills.admin:
+    description: Full administration privileges for NexoriaSkills
+    default: op
+  nexoria.skills.use:
+    description: Standard player privileges for NexoriaSkills
+    default: true

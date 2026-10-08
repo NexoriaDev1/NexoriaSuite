@@ -1,0 +1,22 @@
+name: NexoriaQuests
+version: '1.0.0'
+main: dev.nexoria.quests.NexoriaQuestsPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Dynamic daily, weekly, and narrative quest engine with GUI tracker and customizable rewards."
+website: https://modrinth.com/plugin/nexoria-quests
+
+commands:
+  quests:
+    description: Primary command entrypoint for NexoriaQuests
+    permission: nexoria.quests.use
+    aliases: [quests]
+
+permissions:
+  nexoria.quests.admin:
+    description: Full administration privileges for NexoriaQuests
+    default: op
+  nexoria.quests.use:
+    description: Standard player privileges for NexoriaQuests
+    default: true

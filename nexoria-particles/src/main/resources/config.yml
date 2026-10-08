@@ -1,0 +1,18 @@
+# NexoriaParticles Configuration File
+# Ecosytem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.2)
+# Java: 25+
+
+general:
+  enabled: true
+  debug-mode: false
+  prefix: "<gradient:#F43F5E:#E11D48>[NexoriaParticles]</gradient> "
+
+storage:
+  cache-timeout-seconds: 300
+  async-batch-size: 64
+
+messages:
+  prefix: "<gradient:#F43F5E:#E11D48>[NexoriaParticles]</gradient> "
+  no-permission: "<red>You lack the required permissions to run this command.</red>"
+  reloaded: "<green>Configuration and data modules have been reloaded.</green>"
+  status-active: "<green>Service is healthy and operating normally.</green>"

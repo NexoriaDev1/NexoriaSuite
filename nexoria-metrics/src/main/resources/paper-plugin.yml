@@ -1,0 +1,22 @@
+name: NexoriaMetrics
+version: '1.0.0'
+main: dev.nexoria.metrics.NexoriaMetricsPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Real-time TPS, MSPT, memory usage, and player telemetry monitor with Discord webhook alerts."
+website: https://modrinth.com/plugin/nexoria-metrics
+
+commands:
+  metrics:
+    description: Primary command entrypoint for NexoriaMetrics
+    permission: nexoria.metrics.use
+    aliases: [metrics]
+
+permissions:
+  nexoria.metrics.admin:
+    description: Full administration privileges for NexoriaMetrics
+    default: op
+  nexoria.metrics.use:
+    description: Standard player privileges for NexoriaMetrics
+    default: true

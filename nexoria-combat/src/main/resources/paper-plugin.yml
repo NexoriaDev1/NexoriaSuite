@@ -1,0 +1,22 @@
+name: NexoriaCombat
+version: '1.0.0'
+main: dev.nexoria.combat.NexoriaCombatPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "Combat log tagger, dynamic damage indicator particles, and customizable PvP mechanics."
+website: https://modrinth.com/plugin/nexoria-combat
+
+commands:
+  combat:
+    description: Primary command entrypoint for NexoriaCombat
+    permission: nexoria.combat.use
+    aliases: [combat]
+
+permissions:
+  nexoria.combat.admin:
+    description: Full administration privileges for NexoriaCombat
+    default: op
+  nexoria.combat.use:
+    description: Standard player privileges for NexoriaCombat
+    default: true

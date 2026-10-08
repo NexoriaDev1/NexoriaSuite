@@ -1,0 +1,10 @@
+# Binaries and build outputs
+bin/
+build_stubs/
+build_stubs_classes/
+.gradle/
+build/
+*.class
+
+# Keep dist and source files
+!dist/*.jar

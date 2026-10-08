@@ -1,0 +1,22 @@
+name: NexoriaWarps
+version: '1.0.0'
+main: dev.nexoria.warps.NexoriaWarpsPlugin
+api-version: '1.21'
+folia-supported: true
+author: NexoriaStudio
+description: "High-performance warp, home, and spawn manager with GUI navigators and animated teleport warmups."
+website: https://modrinth.com/plugin/nexoria-warps
+
+commands:
+  warp:
+    description: Primary command entrypoint for NexoriaWarps
+    permission: nexoria.warps.use
+    aliases: [warps]
+
+permissions:
+  nexoria.warps.admin:
+    description: Full administration privileges for NexoriaWarps
+    default: op
+  nexoria.warps.use:
+    description: Standard player privileges for NexoriaWarps
+    default: true
