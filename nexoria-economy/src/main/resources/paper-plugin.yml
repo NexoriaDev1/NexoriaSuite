@@ -7,11 +7,17 @@ author: NexoriaStudio
 description: "Modern multi-currency economy engine with Vault bridge, transaction logs, and interactive bank GUI."
 website: https://modrinth.com/plugin/nexoria-economy
 
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true
+
 commands:
   balance:
     description: Primary command entrypoint for NexoriaEconomy
     permission: nexoria.economy.use
-    aliases: [economy]
+    aliases: [economy, eco]
 
 permissions:
   nexoria.economy.admin:

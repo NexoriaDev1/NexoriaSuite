@@ -17,16 +17,36 @@ public final class NexoriaEconomyPlugin extends JavaPlugin implements TabComplet
 
     private static NexoriaEconomyPlugin instance;
     private EconomyAPI api;
+    private EconomyCommand economyCommand;
+
+    @Override
+    public void onLoad() {
+        instance = this;
+        this.economyCommand = new EconomyCommand(this);
+        // Register Paper Brigadier command lifecycle
+        registerCommand("balance", "Primary command entrypoint for NexoriaEconomy", List.of("economy", "eco"), this.economyCommand);
+    }
 
     @Override
     public void onEnable() {
-        instance = this;
+        if (instance == null) {
+            instance = this;
+        }
+        if (this.economyCommand == null) {
+            this.economyCommand = new EconomyCommand(this);
+        }
+
         saveDefaultConfig();
 
         this.api = new EconomyAPI(this);
         
         // Register events listener
         getServer().getPluginManager().registerEvents(new EconomyListener(this), this);
+
+        // Fallback registration in Bukkit CommandMap if not already bound
+        if (getServer().getCommandMap().getCommand("balance") == null) {
+            getServer().getCommandMap().register("nexoriaeconomy", this.economyCommand);
+        }
 
         getLogger().log(Level.INFO, "{0} v{1} successfully enabled on {2}", 
                 new Object[]{getPluginMeta().getName(), getPluginMeta().getVersion(), getServer().getName()});
@@ -43,30 +63,16 @@ public final class NexoriaEconomyPlugin extends JavaPlugin implements TabComplet
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("nexoria.economy.admin")) {
-                sender.sendMessage("§cYou lack permission: nexoria.economy.admin");
-                return true;
-            }
-            reloadConfig();
-            sender.sendMessage("§a[NexoriaEconomy] Configuration successfully reloaded.");
-            return true;
+        if (this.economyCommand != null) {
+            return this.economyCommand.execute(sender, label, args);
         }
-
-        if (args.length > 0 && args[0].equalsIgnoreCase("status")) {
-            var status = api.getStatus();
-            sender.sendMessage("§b[NexoriaEconomy] §7Status: " + (status.active() ? "§aOperational" : "§cSuspended"));
-            return true;
-        }
-
-        sender.sendMessage("§8[§bNexoriaEconomy§8] §7Running version §f" + getPluginMeta().getVersion() + " §7on §bJava 25§7.");
-        return true;
+        return false;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            return List.of("status", "reload", "help");
+        if (this.economyCommand != null) {
+            return this.economyCommand.tabComplete(sender, alias, args);
         }
         return List.of();
     }
