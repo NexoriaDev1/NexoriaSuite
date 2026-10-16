@@ -1,6 +1,12 @@
 # NexoriaEconomy Configuration File
-# Ecosytem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.2)
+# Ecosystem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.3)
 # Java: 25+
+
+currency:
+  name-singular: "Dollar"
+  name-plural: "Dollars"
+  symbol: "$"
+  starting-balance: 1000.0
 
 general:
   enabled: true
