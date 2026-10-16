@@ -45,3 +45,6 @@ build_stubs_classes/
 .gradle/
 build/
 *.class
+server/
+NEXORIA_*_WIKI.md
+

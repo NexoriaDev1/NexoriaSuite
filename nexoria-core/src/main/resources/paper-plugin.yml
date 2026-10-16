@@ -11,7 +11,7 @@ commands:
   core:
     description: Primary command entrypoint for NexoriaCore
     permission: nexoria.core.use
-    aliases: [core]
+    aliases: [nexoriacore]
 
 permissions:
   nexoria.core.admin:

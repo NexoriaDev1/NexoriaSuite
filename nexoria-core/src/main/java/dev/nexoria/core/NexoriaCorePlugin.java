@@ -17,16 +17,36 @@ public final class NexoriaCorePlugin extends JavaPlugin implements TabCompleter 
 
     private static NexoriaCorePlugin instance;
     private CoreAPI api;
+    private CoreCommand coreCommand;
+
+    @Override
+    public void onLoad() {
+        instance = this;
+        this.coreCommand = new CoreCommand(this);
+        // Register Paper Brigadier command lifecycle
+        registerCommand("core", "Primary command entrypoint for NexoriaCore", List.of("nexoriacore"), this.coreCommand);
+    }
 
     @Override
     public void onEnable() {
-        instance = this;
+        if (instance == null) {
+            instance = this;
+        }
+        if (this.coreCommand == null) {
+            this.coreCommand = new CoreCommand(this);
+        }
+        
         saveDefaultConfig();
 
         this.api = new CoreAPI(this);
         
         // Register events listener
         getServer().getPluginManager().registerEvents(new CoreListener(this), this);
+
+        // Fallback registration in Bukkit CommandMap if not already bound
+        if (getServer().getCommandMap().getCommand("core") == null) {
+            getServer().getCommandMap().register("nexoriacore", this.coreCommand);
+        }
 
         getLogger().log(Level.INFO, "{0} v{1} successfully enabled on {2}", 
                 new Object[]{getPluginMeta().getName(), getPluginMeta().getVersion(), getServer().getName()});
@@ -43,30 +63,16 @@ public final class NexoriaCorePlugin extends JavaPlugin implements TabCompleter 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("nexoria.core.admin")) {
-                sender.sendMessage("§cYou lack permission: nexoria.core.admin");
-                return true;
-            }
-            reloadConfig();
-            sender.sendMessage("§a[NexoriaCore] Configuration successfully reloaded.");
-            return true;
+        if (this.coreCommand != null) {
+            return this.coreCommand.execute(sender, label, args);
         }
-
-        if (args.length > 0 && args[0].equalsIgnoreCase("status")) {
-            var status = api.getStatus();
-            sender.sendMessage("§b[NexoriaCore] §7Status: " + (status.active() ? "§aOperational" : "§cSuspended"));
-            return true;
-        }
-
-        sender.sendMessage("§8[§bNexoriaCore§8] §7Running version §f" + getPluginMeta().getVersion() + " §7on §bJava 25§7.");
-        return true;
+        return false;
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
-            return List.of("status", "reload", "help");
+        if (this.coreCommand != null) {
+            return this.coreCommand.tabComplete(sender, alias, args);
         }
         return List.of();
     }
