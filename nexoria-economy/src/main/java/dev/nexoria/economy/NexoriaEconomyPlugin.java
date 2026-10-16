@@ -48,12 +48,17 @@ public final class NexoriaEconomyPlugin extends JavaPlugin implements TabComplet
             getServer().getCommandMap().register("nexoriaeconomy", this.economyCommand);
         }
 
+        // Register Vault Economy provider if Vault is present
+        VaultHook.register(this);
+
         getLogger().log(Level.INFO, "{0} v{1} successfully enabled on {2}", 
                 new Object[]{getPluginMeta().getName(), getPluginMeta().getVersion(), getServer().getName()});
     }
 
     @Override
     public void onDisable() {
+        VaultHook.unregister(this);
+
         if (this.api != null) {
             this.api.shutdown();
         }

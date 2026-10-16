@@ -5,6 +5,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.server.PluginEnableEvent;
 
 /**
  * Primary event listener for NexoriaEconomy.
@@ -30,5 +31,12 @@ public final class EconomyListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         var player = event.getPlayer();
         plugin.getApi().invalidateSession(player.getUniqueId());
+    }
+
+    @EventHandler
+    public void onPluginEnable(PluginEnableEvent event) {
+        if ("Vault".equalsIgnoreCase(event.getPlugin().getName())) {
+            VaultHook.register(plugin);
+        }
     }
 }

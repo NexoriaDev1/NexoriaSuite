@@ -7,6 +7,7 @@ author: NexoriaStudio
 description: "Modern multi-currency economy engine with Vault bridge, transaction logs, and interactive bank GUI."
 website: https://modrinth.com/plugin/nexoria-economy
 depend: [NexoriaCore]
+softdepend: [Vault]
 
 commands:
   balance:

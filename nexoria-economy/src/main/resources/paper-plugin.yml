@@ -12,6 +12,9 @@ dependencies:
     NexoriaCore:
       load: BEFORE
       required: true
+    Vault:
+      load: BEFORE
+      required: false
 
 commands:
   balance:
