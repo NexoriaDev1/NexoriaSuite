@@ -1,0 +1,16 @@
+name: NexoriaLoot
+version: '1.0.0'
+main: dev.nexoria.loot.NexoriaLootPlugin
+api-version: '1.21'
+description: Configurable drop tables for entities and blocks
+author: NexoriaDev
+softdepend: [ NexoriaCore ]
+commands:
+  loot:
+    description: Loot table management
+    aliases: [ nexorialoot ]
+    permission: nexoria.loot.admin
+permissions:
+  nexoria.loot.admin:
+    description: Allows managing loot tables
+    default: op

@@ -1,13 +1,3 @@
-# Unreleased plugins kept locally
-nexoria-claims/
-nexoria-customcraft/
-nexoria-customitems/
-nexoria-loot/
-nexoria-quests/
-nexoria-skills/
-nexoria-sync/
-nexoria-worldguard-bridge/
-
 # Metadata and internal utility files
 **/MODRINTH_METADATA.md
 MODRINTH_MASTER_CATALOG.md

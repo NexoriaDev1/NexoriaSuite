@@ -1,0 +1,4 @@
+# NexoriaSkills Configuration
+
+messages:
+  no-permission: "&8[&6Skills&8] &cYou lack permission: nexoria.skills.admin"

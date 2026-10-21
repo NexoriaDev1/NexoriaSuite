@@ -1,0 +1,4 @@
+# NexoriaWorldGuardBridge Configuration
+
+messages:
+  no-permission: "&8[&3WorldGuardBridge&8] &cYou lack permission: nexoria.worldguard.admin"

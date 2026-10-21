@@ -1,0 +1,15 @@
+name: NexoriaQuests
+version: '1.0.0'
+main: dev.nexoria.quests.NexoriaQuestsPlugin
+api-version: '1.21'
+description: Player quest tracking with progressive rewards
+authors: [ NexoriaDev ]
+website: https://github.com/NexoriaDev1/NexoriaSuite
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: false
+    Vault:
+      load: BEFORE
+      required: false

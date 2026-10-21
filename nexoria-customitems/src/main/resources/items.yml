@@ -1,0 +1,47 @@
+items:
+  thunder_blade:
+    material: DIAMOND_SWORD
+    name: "&b&lThunder Blade"
+    lore:
+      - "&7Strikes lightning on target hit."
+      - "&8Cooldown: 5s"
+    custom-model-data: 1001
+    unbreakable: false
+    ability: LIGHTNING
+    cooldown: 5
+    enchantments:
+      sharpness: 4
+      unbreaking: 3
+
+  teleport_wand:
+    material: BLAZE_ROD
+    name: "&d&lTeleport Wand"
+    lore:
+      - "&7Right click to leap forward instantly."
+      - "&8Cooldown: 3s"
+    custom-model-data: 1002
+    unbreakable: true
+    ability: TELEPORT
+    cooldown: 3
+
+  healing_totem:
+    material: TOTEM_OF_UNDYING
+    name: "&a&lHealing Totem"
+    lore:
+      - "&7Right click to activate regenerative aura."
+      - "&8Cooldown: 30s"
+    custom-model-data: 1003
+    unbreakable: false
+    ability: HEAL
+    cooldown: 30
+
+  speed_boots:
+    material: NETHERITE_BOOTS
+    name: "&e&lWindrunner Boots"
+    lore:
+      - "&7Right click to trigger dash burst."
+      - "&8Cooldown: 6s"
+    custom-model-data: 1004
+    unbreakable: false
+    ability: DASH
+    cooldown: 6

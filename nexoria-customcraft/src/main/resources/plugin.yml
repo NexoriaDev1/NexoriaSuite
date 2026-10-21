@@ -1,0 +1,16 @@
+name: NexoriaCustomCraft
+version: '1.0.0'
+main: dev.nexoria.customcraft.NexoriaCustomCraftPlugin
+api-version: '1.21'
+description: Dynamic custom shaped and shapeless crafting recipes
+author: NexoriaDev
+softdepend: [ NexoriaCore ]
+commands:
+  customcraft:
+    description: Custom craft management
+    aliases: [ ccraft ]
+    permission: nexoria.customcraft.admin
+permissions:
+  nexoria.customcraft.admin:
+    description: Allows managing custom crafting recipes
+    default: op

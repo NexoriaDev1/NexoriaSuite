@@ -1,0 +1,12 @@
+name: NexoriaCustomItems
+version: '1.0.0'
+main: dev.nexoria.customitems.NexoriaCustomItemsPlugin
+api-version: '1.21'
+description: Custom items engine with PDC tracking and special abilities
+authors: [ NexoriaDev ]
+website: https://github.com/NexoriaDev1/NexoriaSuite
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: false

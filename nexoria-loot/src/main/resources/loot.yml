@@ -1,0 +1,53 @@
+mobs:
+  ZOMBIE:
+    - item: IRON_INGOT
+      chance: 12.0
+      min: 1
+      max: 2
+    - item: CARROT
+      chance: 8.0
+      min: 1
+      max: 1
+
+  SKELETON:
+    - item: BOW
+      chance: 15.0
+      min: 1
+      max: 1
+    - item: ARROW
+      chance: 50.0
+      min: 2
+      max: 6
+
+  ENDER_DRAGON:
+    - item: DRAGON_EGG
+      chance: 100.0
+      min: 1
+      max: 1
+    - item: ELYTRA
+      chance: 25.0
+      min: 1
+      max: 1
+    - item: NETHER_STAR
+      chance: 50.0
+      min: 1
+      max: 2
+
+  WITHER:
+    - item: NETHERITE_INGOT
+      chance: 20.0
+      min: 1
+      max: 1
+
+blocks:
+  DIAMOND_ORE:
+    - item: EXPERIENCED_BOTTLE
+      chance: 15.0
+      min: 1
+      max: 2
+
+  ANCIENT_DEBRIS:
+    - item: NETHERITE_SCRAP
+      chance: 25.0
+      min: 1
+      max: 1

@@ -1,0 +1,16 @@
+name: NexoriaCustomItems
+version: '1.0.0'
+main: dev.nexoria.customitems.NexoriaCustomItemsPlugin
+api-version: '1.21'
+description: Custom items engine with PDC tracking and special abilities
+author: NexoriaDev
+softdepend: [ NexoriaCore ]
+commands:
+  customitems:
+    description: Custom items management
+    aliases: [ citems, ci ]
+    permission: nexoria.customitems.admin
+permissions:
+  nexoria.customitems.admin:
+    description: Allows managing and giving custom items
+    default: op

@@ -1,0 +1,12 @@
+name: NexoriaSync
+version: '1.0.0'
+main: dev.nexoria.sync.NexoriaSyncPlugin
+api-version: '1.21'
+description: Cross-server inventory and player state synchronization
+authors: [ NexoriaDev ]
+website: https://github.com/NexoriaDev1/NexoriaSuite
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: false

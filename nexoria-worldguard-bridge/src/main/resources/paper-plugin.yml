@@ -1,0 +1,15 @@
+name: NexoriaWorldguardBridge
+version: '1.0.0'
+main: dev.nexoria.worldguard.NexoriaWorldGuardBridgePlugin
+api-version: '1.21'
+description: Seamless WorldGuard and WorldEdit region protection bridge
+authors: [ NexoriaDev ]
+website: https://github.com/NexoriaDev1/NexoriaSuite
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: false
+    WorldGuard:
+      load: BEFORE
+      required: false

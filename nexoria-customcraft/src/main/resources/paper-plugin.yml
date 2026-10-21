@@ -1,0 +1,12 @@
+name: NexoriaCustomCraft
+version: '1.0.0'
+main: dev.nexoria.customcraft.NexoriaCustomCraftPlugin
+api-version: '1.21'
+description: Dynamic custom shaped and shapeless crafting recipes
+authors: [ NexoriaDev ]
+website: https://github.com/NexoriaDev1/NexoriaSuite
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: false
