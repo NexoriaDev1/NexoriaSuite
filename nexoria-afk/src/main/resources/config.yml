@@ -1,0 +1,32 @@
+# NexoriaAFK Configuration File
+# Ecosystem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.3)
+# Java: 25+
+
+general:
+  enabled: true
+  debug-mode: false
+
+afk:
+  # Inactivity seconds to automatically set a player as AFK
+  auto-afk-seconds: 300
+  # Suffix appended to player tab list name
+  tab-suffix: " &8[&7AFK&8]"
+  # Cancel AFK on: movement, chat, interact
+  cancel-on-move: true
+  cancel-on-chat: true
+  cancel-on-interact: true
+
+auto-kick:
+  enabled: false
+  # Seconds of being AFK before getting kicked
+  kick-seconds: 1800
+  kick-message: "&cYou have been kicked for idling too long."
+
+messages:
+  prefix: "&8[&6NexoriaAFK&8] "
+  no-permission: "&cYou lack the required permissions to execute this command."
+  reloaded: "&aAFK configuration successfully reloaded."
+  now-afk: "&7You are now &eAFK&7."
+  no-longer-afk: "&7You are no longer &aAFK&7."
+  broadcast-afk: "&e{player} &7is now &eAFK&7."
+  broadcast-return: "&e{player} &7is no longer &aAFK&7."

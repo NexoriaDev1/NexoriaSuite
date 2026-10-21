@@ -1,0 +1,24 @@
+# NexoriaWarps Configuration File
+# Ecosystem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.3)
+# Java: 25+
+
+general:
+  enabled: true
+  debug-mode: false
+
+warps:
+  # Cooldown in seconds between warps for standard players
+  cooldown-seconds: 5
+
+messages:
+  prefix: "&8[&5NexoriaWarps&8] "
+  no-permission: "&cYou lack the required permissions to execute this command."
+  reloaded: "&aWarp configurations successfully reloaded."
+  teleporting: "&7Teleporting to warp &d{warp}&7..."
+  warp-set: "&aWarp &d{warp} &asuccessfully created at your current position."
+  warp-deleted: "&cWarp &d{warp} &ahas been deleted."
+  warp-not-found: "&cWarp &d{warp} &cdoes not exist."
+  warp-list: "&7Available warps (&d{count}&7): &f{warps}"
+  no-warps: "&7There are currently no warps set."
+  cooldown: "&cPlease wait &e{seconds}s &cbefore using another warp."
+  only-player: "&cThis command can only be executed by in-game players."

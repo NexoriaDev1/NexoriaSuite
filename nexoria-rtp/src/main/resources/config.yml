@@ -1,0 +1,27 @@
+# NexoriaRTP Configuration File
+# Ecosystem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.3)
+# Java: 25+
+
+general:
+  enabled: true
+  debug-mode: false
+
+rtp:
+  # Minimum distance from world spawn (0,0)
+  min-range: 150
+  # Maximum distance from world spawn
+  max-range: 3000
+  # Cooldown in seconds between random teleports
+  cooldown-seconds: 30
+  # Maximum search attempts before falling back
+  max-attempts: 15
+
+messages:
+  prefix: "&8[&aNexoriaRTP&8] "
+  no-permission: "&cYou lack the required permissions to execute this command."
+  reloaded: "&aRTP configuration successfully reloaded."
+  searching: "&7Searching for a safe wilderness location..."
+  teleported: "&aTeleported to &fX: {x}, Y: {y}, Z: {z}&a!"
+  failed: "&cCould not find a safe wilderness spot in {attempts} attempts. Please try again."
+  cooldown: "&cPlease wait &e{seconds}s &cbefore using random teleport again."
+  only-player: "&cThis command can only be executed by in-game players."
