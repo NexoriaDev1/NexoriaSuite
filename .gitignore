@@ -1,9 +1,7 @@
 # Unreleased plugins kept locally
 nexoria-adventure/
-nexoria-announcer/
 nexoria-antigrief/
 nexoria-claims/
-nexoria-combat/
 nexoria-cooldowns/
 nexoria-customcraft/
 nexoria-customitems/
@@ -15,8 +13,6 @@ nexoria-metrics/
 nexoria-nbt/
 nexoria-particles/
 nexoria-quests/
-nexoria-scoreboard/
-nexoria-shops/
 nexoria-skills/
 nexoria-spawners/
 nexoria-sync/
@@ -41,4 +37,3 @@ build/
 *.class
 server/
 NEXORIA_*_WIKI.md
-

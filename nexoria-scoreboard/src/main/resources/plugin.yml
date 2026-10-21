@@ -1,0 +1,24 @@
+name: NexoriaScoreboard
+version: '1.0.0'
+main: dev.nexoria.scoreboard.NexoriaScoreboardPlugin
+api-version: '1.21'
+prefix: NexoriaScoreboard
+author: NexoriaDev
+description: Dynamic flicker-free scoreboard for modern Minecraft servers.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+softdepend: [ Vault ]
+
+commands:
+  scoreboard:
+    description: Toggle or manage scoreboard display
+    aliases: [ sb, sidebar ]
+    permission: nexoria.scoreboard.use
+
+permissions:
+  nexoria.scoreboard.use:
+    description: Allows toggling sidebar display
+    default: true
+  nexoria.scoreboard.admin:
+    description: Allows reloading scoreboard configuration
+    default: op

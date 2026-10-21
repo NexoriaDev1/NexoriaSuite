@@ -1,0 +1,18 @@
+name: NexoriaShops
+version: '1.0.0'
+main: dev.nexoria.shops.NexoriaShopsPlugin
+api-version: '1.21'
+prefix: NexoriaShops
+authors: [ NexoriaDev ]
+description: Dynamic GUI shop system with instant sell hand/all integration.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: POSTWORLD
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true
+    Vault:
+      load: BEFORE
+      required: true

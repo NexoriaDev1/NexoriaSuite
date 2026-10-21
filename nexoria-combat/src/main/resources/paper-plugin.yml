@@ -1,0 +1,15 @@
+name: NexoriaCombat
+version: '1.0.0'
+main: dev.nexoria.combat.NexoriaCombatPlugin
+api-version: '1.21'
+prefix: NexoriaCombat
+authors: [ NexoriaDev ]
+description: Anti-combat log, tag tracking, and competitive PvP control.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: POSTWORLD
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true

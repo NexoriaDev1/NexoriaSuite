@@ -1,0 +1,15 @@
+name: NexoriaAnnouncer
+version: '1.0.0'
+main: dev.nexoria.announcer.NexoriaAnnouncerPlugin
+api-version: '1.21'
+prefix: NexoriaAnnouncer
+authors: [ NexoriaDev ]
+description: Automated announcement system with chat, title and actionbar broadcasts.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: POSTWORLD
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true

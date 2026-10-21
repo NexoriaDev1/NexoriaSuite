@@ -1,0 +1,60 @@
+# NexoriaAnnouncer Configuration
+# Automated broadcast engine for chat, titles, and action bars
+
+settings:
+  # Enabled or disabled
+  enabled: true
+  # Interval between broadcasts in seconds
+  interval-seconds: 120
+  # Broadcast order: SEQUENTIAL or RANDOM
+  mode: SEQUENTIAL
+  # Play a sound effect when broadcasting
+  sound:
+    enabled: true
+    name: "BLOCK_NOTE_BLOCK_PLING"
+    volume: 1.0
+    pitch: 1.2
+
+# Broadcast messages list
+# Each announcement can have:
+# - chat: list of strings (supports color codes & MiniMessage)
+# - title: (optional) title text
+# - subtitle: (optional) subtitle text
+# - actionbar: (optional) text to display on the actionbar
+announcements:
+  discord:
+    chat:
+      - "&8&m----------------------------------------"
+      - "&6&lDISCORD SERVER"
+      - "&7Join our community to report bugs, receive news and participate in giveaways!"
+      - "&ehttps://discord.gg/yourserver"
+      - "&8&m----------------------------------------"
+    sound: "BLOCK_NOTE_BLOCK_PLING"
+  store:
+    chat:
+      - "&8&m----------------------------------------"
+      - "&b&lSERVER STORE"
+      - "&7Support the network by purchasing ranks and cosmetics."
+      - "&aVisit: &fhttps://store.yourserver.net"
+      - "&8&m----------------------------------------"
+  vote:
+    chat:
+      - "&8&m----------------------------------------"
+      - "&a&lVOTE FOR US"
+      - "&7Vote daily to receive in-game keys, claim blocks and rewards!"
+      - "&eUse &f/vote &eto see available vote links."
+      - "&8&m----------------------------------------"
+    actionbar: "&a&lVOTE! &7Earn free rewards every day with &e/vote"
+  rules:
+    chat:
+      - "&8&m----------------------------------------"
+      - "&c&lSERVER RULES"
+      - "&7Respect all players, avoid spam and keep chat family-friendly."
+      - "&7Hacking or exploiting will result in a permanent ban."
+      - "&8&m----------------------------------------"
+
+messages:
+  prefix: "&8[&6Broadcast&8] &r"
+  reloaded: "&aAnnouncer configuration reloaded successfully."
+  broadcast-format: "&8[&c&lALERT&8] &f{message}"
+  no-permission: "&cYou do not have permission to execute this command."
