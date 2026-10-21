@@ -9,11 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Standard Vault Economy implementation for NexoriaEconomy.
- * Enables seamless compatibility with ChestShop, QuickShop, ShopGUI+,
- * AuctionHouse, DeluxeMenus, and all Vault-dependent plugins.
- */
 public final class VaultEconomyProvider extends AbstractEconomy {
 
     private final NexoriaEconomyPlugin plugin;
@@ -49,15 +44,13 @@ public final class VaultEconomyProvider extends AbstractEconomy {
 
     @Override
     public String currencyNamePlural() {
-        return plugin.getConfig().getString("currency.name-plural", "Dollars");
+        return plugin.getApi().getNamePlural();
     }
 
     @Override
     public String currencyNameSingular() {
-        return plugin.getConfig().getString("currency.name-singular", "Dollar");
+        return plugin.getApi().getNameSingular();
     }
-
-    // --- OfflinePlayer Implementations (Modern standard) ---
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
@@ -136,7 +129,7 @@ public final class VaultEconomyProvider extends AbstractEconomy {
     @Override
     public boolean createPlayerAccount(OfflinePlayer player) {
         if (player == null || player.getUniqueId() == null) return false;
-        plugin.getApi().registerSession(player.getUniqueId());
+        plugin.getApi().getBalance(player.getUniqueId());
         return true;
     }
 
@@ -144,8 +137,6 @@ public final class VaultEconomyProvider extends AbstractEconomy {
     public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
         return createPlayerAccount(player);
     }
-
-    // --- Legacy String Name Bridge (Deprecated Vault methods) ---
 
     @SuppressWarnings("deprecation")
     private OfflinePlayer getOffline(String playerName) {
@@ -211,8 +202,6 @@ public final class VaultEconomyProvider extends AbstractEconomy {
     public boolean createPlayerAccount(String playerName, String worldName) {
         return createPlayerAccount(getOffline(playerName));
     }
-
-    // --- Bank Stubs (Unsupported) ---
 
     @Override
     public EconomyResponse createBank(String name, String player) {

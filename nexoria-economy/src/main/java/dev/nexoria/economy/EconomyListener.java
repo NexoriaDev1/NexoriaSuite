@@ -4,12 +4,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginEnableEvent;
 
-/**
- * Primary event listener for NexoriaEconomy.
- */
 public final class EconomyListener implements Listener {
 
     private final NexoriaEconomyPlugin plugin;
@@ -24,13 +20,7 @@ public final class EconomyListener implements Listener {
             return;
         }
         var player = event.getPlayer();
-        plugin.getApi().registerSession(player.getUniqueId());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        var player = event.getPlayer();
-        plugin.getApi().invalidateSession(player.getUniqueId());
+        plugin.getApi().updatePlayerName(player.getUniqueId(), player.getName());
     }
 
     @EventHandler

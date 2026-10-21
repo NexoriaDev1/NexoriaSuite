@@ -1,94 +1,115 @@
 package dev.nexoria.economy;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Developer API contract for NexoriaEconomy.
- * High-performance, thread-safe economy engine for Paper and Folia.
- */
 public class EconomyAPI {
 
-    public record ServiceHealth(String service, boolean active, Instant timestamp, int totalAccounts, double totalCirculation) {}
+    public record AccountEntry(UUID uuid, String name, double balance) {}
 
     private final NexoriaEconomyPlugin plugin;
     private final Logger logger;
-    private final Map<UUID, Double> balanceRegistry = new ConcurrentHashMap<>();
-    private final DecimalFormat formatter = new DecimalFormat("#,##0.00");
+    private final Map<UUID, Double> balances = new ConcurrentHashMap<>();
+    private final Map<UUID, String> knownNames = new ConcurrentHashMap<>();
     private final File dataFile;
     private volatile boolean active;
-    private String currencySymbol = "$";
+
+    private String symbol = "$";
+    private String nameSingular = "Dollar";
+    private String namePlural = "Dollars";
     private double startingBalance = 1000.0;
+    private DecimalFormat formatter = new DecimalFormat("#,##0.00");
 
     public EconomyAPI(NexoriaEconomyPlugin plugin) {
         this.plugin = plugin;
         this.logger = plugin.getLogger();
-        this.active = true;
         this.dataFile = new File(plugin.getDataFolder(), "data/balances.yml");
-        loadData();
+        this.active = true;
+        load();
     }
 
-    public void loadData() {
-        this.currencySymbol = plugin.getConfig().getString("currency.symbol", "$");
-        this.startingBalance = plugin.getConfig().getDouble("currency.starting-balance", 1000.0);
+    public void load() {
+        var cfg = plugin.getConfig();
+        this.symbol = cfg.getString("currency.symbol", "$");
+        this.nameSingular = cfg.getString("currency.name-singular", "Dollar");
+        this.namePlural = cfg.getString("currency.name-plural", "Dollars");
+        this.startingBalance = cfg.getDouble("currency.starting-balance", 1000.0);
+        int dec = cfg.getInt("currency.decimals", 2);
+        String pattern = dec > 0 ? "#,##0." + "0".repeat(dec) : "#,##0";
+        this.formatter = new DecimalFormat(pattern);
+
+        balances.clear();
+        knownNames.clear();
 
         if (dataFile.exists()) {
             YamlConfiguration yaml = YamlConfiguration.loadConfiguration(dataFile);
             for (String key : yaml.getKeys(false)) {
                 try {
                     UUID uuid = UUID.fromString(key);
-                    balanceRegistry.put(uuid, yaml.getDouble(key));
-                } catch (IllegalArgumentException ignored) {}
+                    double val = yaml.getDouble(key + ".balance", startingBalance);
+                    String name = yaml.getString(key + ".name", "Unknown");
+                    balances.put(uuid, val);
+                    knownNames.put(uuid, name);
+                } catch (IllegalArgumentException ignored) {
+                    // Legacy flat format fallback
+                    try {
+                        UUID uuid = UUID.fromString(key);
+                        balances.put(uuid, yaml.getDouble(key));
+                    } catch (Exception ignored2) {}
+                }
             }
         }
     }
 
-    public synchronized void saveData() {
+    public synchronized void save() {
         try {
             if (!dataFile.getParentFile().exists()) {
                 dataFile.getParentFile().mkdirs();
             }
             YamlConfiguration yaml = new YamlConfiguration();
-            balanceRegistry.forEach((uuid, bal) -> yaml.set(uuid.toString(), bal));
+            balances.forEach((uuid, amount) -> {
+                String name = knownNames.getOrDefault(uuid, "Unknown");
+                yaml.set(uuid + ".name", name);
+                yaml.set(uuid + ".balance", amount);
+            });
             yaml.save(dataFile);
         } catch (IOException e) {
-            logger.log(Level.WARNING, "Failed to persist balance data: {0}", e.getMessage());
+            logger.log(Level.SEVERE, "Could not save balance data: " + e.getMessage());
         }
+    }
+
+    public void saveAsync() {
+        CompletableFuture.runAsync(this::save);
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public ServiceHealth getStatus() {
-        double total = balanceRegistry.values().stream().mapToDouble(Double::doubleValue).sum();
-        return new ServiceHealth("NexoriaEconomy", active, Instant.now(), balanceRegistry.size(), total);
-    }
-
     public double getBalance(UUID uuid) {
-        return balanceRegistry.computeIfAbsent(uuid, k -> startingBalance);
+        return balances.computeIfAbsent(uuid, k -> startingBalance);
     }
 
     public boolean setBalance(UUID uuid, double amount) {
         if (amount < 0) return false;
-        balanceRegistry.put(uuid, amount);
+        balances.put(uuid, amount);
         saveAsync();
         return true;
     }
 
     public boolean deposit(UUID uuid, double amount) {
         if (amount <= 0) return false;
-        double current = getBalance(uuid);
-        balanceRegistry.put(uuid, current + amount);
+        balances.put(uuid, getBalance(uuid) + amount);
         saveAsync();
         return true;
     }
@@ -97,7 +118,7 @@ public class EconomyAPI {
         if (amount <= 0) return false;
         double current = getBalance(uuid);
         if (current < amount) return false;
-        balanceRegistry.put(uuid, current - amount);
+        balances.put(uuid, current - amount);
         saveAsync();
         return true;
     }
@@ -107,36 +128,56 @@ public class EconomyAPI {
     }
 
     public String format(double amount) {
-        return currencySymbol + formatter.format(amount);
+        return symbol + formatter.format(amount);
     }
 
-    public void saveAsync() {
-        CompletableFuture.runAsync(this::saveData);
+    public void updatePlayerName(UUID uuid, String name) {
+        knownNames.put(uuid, name);
     }
 
-    public CompletableFuture<Void> supplyAsync(Runnable task) {
-        return CompletableFuture.runAsync(task);
+    public String getPlayerName(UUID uuid) {
+        String cached = knownNames.get(uuid);
+        if (cached != null) return cached;
+        OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+        return op.getName() != null ? op.getName() : "Unknown";
     }
 
-    public Map<UUID, Double> getActiveSessions() {
-        return Collections.unmodifiableMap(balanceRegistry);
+    public List<AccountEntry> getTopBalances(int limit) {
+        List<AccountEntry> list = new ArrayList<>();
+        balances.forEach((uuid, bal) -> {
+            list.add(new AccountEntry(uuid, getPlayerName(uuid), bal));
+        });
+        list.sort((a, b) -> Double.compare(b.balance(), a.balance()));
+        if (list.size() > limit) {
+            return list.subList(0, limit);
+        }
+        return list;
     }
 
-    public void registerSession(UUID uuid) {
-        getBalance(uuid); // Ensure account is initialized
+    public double getTotalCirculation() {
+        return balances.values().stream().mapToDouble(Double::doubleValue).sum();
     }
 
-    public void invalidateSession(UUID uuid) {
-        // Balances remain persisted in registry and disk
+    public int getTotalAccounts() {
+        return balances.size();
     }
 
-    protected void shutdown() {
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getNameSingular() {
+        return nameSingular;
+    }
+
+    public String getNamePlural() {
+        return namePlural;
+    }
+
+    public void shutdown() {
         this.active = false;
-        saveData();
-        this.balanceRegistry.clear();
-    }
-
-    public NexoriaEconomyPlugin getPlugin() {
-        return plugin;
+        save();
+        balances.clear();
+        knownNames.clear();
     }
 }

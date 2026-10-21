@@ -1,24 +1,33 @@
-# NexoriaEconomy Configuration File
-# Ecosystem: NexoriaSuite (Paper / Purpur / Folia 1.21.x - 26.3)
-# Java: 25+
+# ========================================================
+# NexoriaEconomy - Main Configuration
+# Supports Paper, Purpur and Folia
+# ========================================================
 
 currency:
+  symbol: "$"
   name-singular: "Dollar"
   name-plural: "Dollars"
-  symbol: "$"
   starting-balance: 1000.0
+  decimals: 2
 
-general:
-  enabled: true
-  debug-mode: false
-  prefix: "<gradient:#10B981:#059669>[NexoriaEconomy]</gradient> "
-
-storage:
-  cache-timeout-seconds: 300
-  async-batch-size: 64
+# Top balances display options
+baltop:
+  cache-minutes: 5
+  limit: 10
 
 messages:
-  prefix: "<gradient:#10B981:#059669>[NexoriaEconomy]</gradient> "
-  no-permission: "<red>You lack the required permissions to run this command.</red>"
-  reloaded: "<green>Configuration and data modules have been reloaded.</green>"
-  status-active: "<green>Service is healthy and operating normally.</green>"
+  prefix: "&2[&a$&2]&r "
+  no-permission: "&cYou don't have permission to do that."
+  player-not-found: "&cPlayer not found."
+  invalid-amount: "&cInvalid amount specified."
+  insufficient-funds: "&cYou don't have enough money. (Required: {needed})"
+  only-players: "&cThis command can only be used by players."
+  reload-success: "&aConfiguration and balances reloaded."
+  balance: "&7Your balance: &a{balance}"
+  balance-other: "&7{player}'s balance: &a{balance}"
+  pay-sent: "&7You sent &a{amount} &7to &e{player}&7."
+  pay-received: "&7You received &a{amount} &7from &e{player}&7."
+  cannot-pay-self: "&cYou cannot send money to yourself."
+  admin-give: "&7Added &a{amount} &7to &e{player}&7's account. New balance: &a{balance}"
+  admin-take: "&7Took &c{amount} &7from &e{player}&7's account. New balance: &a{balance}"
+  admin-set: "&7Set &e{player}&7's balance to &a{balance}&7."

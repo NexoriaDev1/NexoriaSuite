@@ -9,22 +9,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
-/**
- * Entry point for NexoriaEconomy.
- * Part of the NexoriaSuite server ecosystem.
- */
 public final class NexoriaEconomyPlugin extends JavaPlugin implements TabCompleter {
 
     private static NexoriaEconomyPlugin instance;
     private EconomyAPI api;
+    private BalanceCommand balanceCommand;
+    private PayCommand payCommand;
+    private BaltopCommand baltopCommand;
     private EconomyCommand economyCommand;
 
     @Override
     public void onLoad() {
         instance = this;
+        this.balanceCommand = new BalanceCommand(this);
+        this.payCommand = new PayCommand(this);
+        this.baltopCommand = new BaltopCommand(this);
         this.economyCommand = new EconomyCommand(this);
-        // Register Paper Brigadier command lifecycle
-        registerCommand("balance", "Primary command entrypoint for NexoriaEconomy", List.of("economy", "eco"), this.economyCommand);
+
+        registerCommand("balance", "Check player balance", List.of("bal", "money"), this.balanceCommand);
+        registerCommand("pay", "Pay another player", List.of(), this.payCommand);
+        registerCommand("balancetop", "Top richest players", List.of("baltop"), this.baltopCommand);
+        registerCommand("economy", "Economy administration", List.of("eco"), this.economyCommand);
     }
 
     @Override
@@ -32,26 +37,36 @@ public final class NexoriaEconomyPlugin extends JavaPlugin implements TabComplet
         if (instance == null) {
             instance = this;
         }
-        if (this.economyCommand == null) {
+        if (this.balanceCommand == null) {
+            this.balanceCommand = new BalanceCommand(this);
+            this.payCommand = new PayCommand(this);
+            this.baltopCommand = new BaltopCommand(this);
             this.economyCommand = new EconomyCommand(this);
         }
 
         saveDefaultConfig();
 
         this.api = new EconomyAPI(this);
-        
-        // Register events listener
+
         getServer().getPluginManager().registerEvents(new EconomyListener(this), this);
 
-        // Fallback registration in Bukkit CommandMap if not already bound
+        // Fallback registrations in Bukkit CommandMap
         if (getServer().getCommandMap().getCommand("balance") == null) {
+            getServer().getCommandMap().register("nexoriaeconomy", this.balanceCommand);
+        }
+        if (getServer().getCommandMap().getCommand("pay") == null) {
+            getServer().getCommandMap().register("nexoriaeconomy", this.payCommand);
+        }
+        if (getServer().getCommandMap().getCommand("balancetop") == null) {
+            getServer().getCommandMap().register("nexoriaeconomy", this.baltopCommand);
+        }
+        if (getServer().getCommandMap().getCommand("economy") == null) {
             getServer().getCommandMap().register("nexoriaeconomy", this.economyCommand);
         }
 
-        // Register Vault Economy provider if Vault is present
         VaultHook.register(this);
 
-        getLogger().log(Level.INFO, "{0} v{1} successfully enabled on {2}", 
+        getLogger().log(Level.INFO, "{0} v{1} enabled on {2}", 
                 new Object[]{getPluginMeta().getName(), getPluginMeta().getVersion(), getServer().getName()});
     }
 
@@ -62,28 +77,33 @@ public final class NexoriaEconomyPlugin extends JavaPlugin implements TabComplet
         if (this.api != null) {
             this.api.shutdown();
         }
-        getLogger().info("NexoriaEconomy successfully stopped.");
+        getLogger().info("NexoriaEconomy disabled.");
         instance = null;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (this.economyCommand != null) {
-            return this.economyCommand.execute(sender, label, args);
-        }
-        return false;
+        String name = command.getName().toLowerCase();
+        return switch (name) {
+            case "pay" -> this.payCommand != null && this.payCommand.execute(sender, label, args);
+            case "balancetop", "baltop" -> this.baltopCommand != null && this.baltopCommand.execute(sender, label, args);
+            case "economy", "eco" -> this.economyCommand != null && this.economyCommand.execute(sender, label, args);
+            default -> this.balanceCommand != null && this.balanceCommand.execute(sender, label, args);
+        };
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (this.economyCommand != null) {
-            return this.economyCommand.tabComplete(sender, alias, args);
-        }
-        return List.of();
+        String name = command.getName().toLowerCase();
+        return switch (name) {
+            case "pay" -> this.payCommand != null ? this.payCommand.tabComplete(sender, alias, args) : List.of();
+            case "economy", "eco" -> this.economyCommand != null ? this.economyCommand.tabComplete(sender, alias, args) : List.of();
+            default -> this.balanceCommand != null ? this.balanceCommand.tabComplete(sender, alias, args) : List.of();
+        };
     }
 
     public static NexoriaEconomyPlugin getInstance() {
-        return Objects.requireNonNull(instance, "NexoriaEconomy has not been initialized yet");
+        return Objects.requireNonNull(instance, "NexoriaEconomy not initialized");
     }
 
     public EconomyAPI getApi() {

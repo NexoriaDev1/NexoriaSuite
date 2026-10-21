@@ -4,21 +4,35 @@ main: dev.nexoria.economy.NexoriaEconomyPlugin
 api-version: '1.21'
 folia-supported: true
 author: NexoriaStudio
-description: "Modern multi-currency economy engine with Vault bridge, transaction logs, and interactive bank GUI."
+description: "Lightweight and fast economy solution with Vault provider support."
 website: https://modrinth.com/plugin/nexoria-economy
 depend: [NexoriaCore]
 softdepend: [Vault]
 
 commands:
   balance:
-    description: Primary command entrypoint for NexoriaEconomy
+    description: Check your balance or another player's balance
     permission: nexoria.economy.use
-    aliases: [economy, eco]
+    aliases: [bal, money]
+  pay:
+    description: Send money to another player
+    permission: nexoria.economy.pay
+  balancetop:
+    description: View the top richest players
+    permission: nexoria.economy.use
+    aliases: [baltop]
+  economy:
+    description: Admin economy management command
+    permission: nexoria.economy.admin
+    aliases: [eco]
 
 permissions:
-  nexoria.economy.admin:
-    description: Full administration privileges for NexoriaEconomy
-    default: op
   nexoria.economy.use:
-    description: Standard player privileges for NexoriaEconomy
+    description: Allows checking balance and baltop
     default: true
+  nexoria.economy.pay:
+    description: Allows sending money to others
+    default: true
+  nexoria.economy.admin:
+    description: Allows giving, taking, and setting player balances
+    default: op
