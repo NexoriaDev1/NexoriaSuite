@@ -1,0 +1,23 @@
+name: NexoriaParticles
+version: '1.0.0'
+main: dev.nexoria.particles.NexoriaParticlesPlugin
+api-version: '1.21'
+prefix: NexoriaParticles
+author: NexoriaDev
+description: Visual cosmetic particles, halos, orbiters and trails engine.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  particles:
+    description: Choose or toggle cosmetic particle animations
+    aliases: [ particle, trails ]
+    permission: nexoria.particles.use
+
+permissions:
+  nexoria.particles.use:
+    description: Allows selecting cosmetic particles
+    default: true
+  nexoria.particles.admin:
+    description: Full administration over particle configuration
+    default: op

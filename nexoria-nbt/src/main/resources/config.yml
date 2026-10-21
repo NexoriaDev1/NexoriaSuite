@@ -1,0 +1,16 @@
+# NexoriaNBT Configuration
+# Modern PersistentDataContainer and custom item metadata utility
+
+settings:
+  # Enable logging of PDC modifications
+  log-modifications: false
+
+messages:
+  prefix: "&8[&bNBT&8] &r"
+  tag-set: "&aSet tag &e{key}&a = &f{value} &aon held item."
+  tag-removed: "&aRemoved tag &e{key} &afrom held item."
+  no-item: "&cYou must be holding an item in your main hand."
+  no-tags: "&7This item does not contain any custom PDC tags."
+  tags-header: "&bCustom PDC Tags on held item:"
+  reloaded: "&aNBT configuration reloaded successfully."
+  no-permission: "&cYou do not have permission to execute this command."

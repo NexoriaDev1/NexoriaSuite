@@ -1,0 +1,23 @@
+name: NexoriaMetrics
+version: '1.0.0'
+main: dev.nexoria.metrics.NexoriaMetricsPlugin
+api-version: '1.21'
+prefix: NexoriaMetrics
+author: NexoriaDev
+description: Server performance diagnostics, memory and MSPT metrics for Paper & Folia.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  metrics:
+    description: Inspect live server TPS, MSPT and memory metrics
+    aliases: [ nexmetrics, tpsinfo ]
+    permission: nexoria.metrics.use
+
+permissions:
+  nexoria.metrics.use:
+    description: Allows viewing performance metrics
+    default: true
+  nexoria.metrics.admin:
+    description: Full administration over metrics and garbage collection
+    default: op
