@@ -1,0 +1,14 @@
+# NexoriaAdventure Configuration
+# Advanced MiniMessage text formatting, boss bars and visual cues
+
+settings:
+  # Default boss bar color: BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
+  default-bossbar-color: "PURPLE"
+  # Default boss bar overlay: PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20
+  default-bossbar-overlay: "PROGRESS"
+
+messages:
+  prefix: "<gradient:#8B5CF6:#EC4899>[Adventure]</gradient> "
+  bossbar-sent: "<green>Sent boss bar announcement for <yellow>{seconds}s</yellow>.</green>"
+  reloaded: "<green>Adventure configuration reloaded successfully.</green>"
+  no-permission: "<red>You do not have permission to execute this command.</red>"

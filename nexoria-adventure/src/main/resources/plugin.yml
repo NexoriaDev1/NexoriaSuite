@@ -1,0 +1,20 @@
+name: NexoriaAdventure
+version: '1.0.0'
+main: dev.nexoria.adventure.NexoriaAdventurePlugin
+api-version: '1.21'
+prefix: NexoriaAdventure
+author: NexoriaDev
+description: MiniMessage, rich text styling, animated bossbars and titles.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  adventure:
+    description: Send MiniMessage styled messages and animated bossbars
+    aliases: [ adv ]
+    permission: nexoria.adventure.admin
+
+permissions:
+  nexoria.adventure.admin:
+    description: Full administration over adventure commands
+    default: op

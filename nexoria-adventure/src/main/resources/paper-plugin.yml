@@ -1,0 +1,15 @@
+name: NexoriaAdventure
+version: '1.0.0'
+main: dev.nexoria.adventure.NexoriaAdventurePlugin
+api-version: '1.21'
+prefix: NexoriaAdventure
+authors: [ NexoriaDev ]
+description: MiniMessage, rich text styling, animated bossbars and titles.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: STARTUP
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true
