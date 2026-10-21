@@ -1,0 +1,20 @@
+name: NexoriaHolograms
+version: '1.0.0'
+main: dev.nexoria.holograms.NexoriaHologramsPlugin
+api-version: '1.21'
+prefix: NexoriaHolograms
+author: NexoriaDev
+description: Floating hologram displays using modern Text Display entities.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  hologram:
+    description: Create and manage floating holograms
+    aliases: [ holo, holograms ]
+    permission: nexoria.holograms.admin
+
+permissions:
+  nexoria.holograms.admin:
+    description: Full administration over server holograms
+    default: op

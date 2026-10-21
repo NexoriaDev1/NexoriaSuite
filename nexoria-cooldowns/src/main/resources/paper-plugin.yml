@@ -1,0 +1,15 @@
+name: NexoriaCooldowns
+version: '1.0.0'
+main: dev.nexoria.cooldowns.NexoriaCooldownsPlugin
+api-version: '1.21'
+prefix: NexoriaCooldowns
+authors: [ NexoriaDev ]
+description: Persistent rate-limiting and command cooldown management engine.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: POSTWORLD
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true

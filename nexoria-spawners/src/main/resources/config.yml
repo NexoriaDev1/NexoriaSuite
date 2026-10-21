@@ -1,0 +1,45 @@
+# NexoriaSpawners Configuration
+# Silk touch spawner collection, placement and egg management
+
+settings:
+  # Require Silk Touch enchantment to drop spawners when mined
+  require-silk-touch: true
+  # Minimum Silk Touch enchantment level required (default: 1)
+  silk-touch-level: 1
+  # Drop chance percentage (1-100)
+  drop-chance: 100
+  # Allow players to change spawner mob type using spawn eggs
+  allow-spawn-egg-change: true
+  # Consume spawn egg when changing spawner type in survival
+  consume-spawn-egg: true
+  # Play particle/sound effect when mining or placing spawners
+  effects: true
+
+# Enabled mob types allowed to be mined or spawned
+# Set false to drop an empty or generic PIG spawner instead
+allowed-mobs:
+  - ZOMBIE
+  - SKELETON
+  - SPIDER
+  - CAVE_SPIDER
+  - BLAZE
+  - CREEPER
+  - ENDERMAN
+  - COW
+  - PIG
+  - SHEEP
+  - CHICKEN
+  - IRON_GOLEM
+
+messages:
+  prefix: "&8[&dSpawners&8] &r"
+  mined: "&aYou picked up a &e{type} Spawner&a."
+  placed: "&aPlaced a &e{type} Spawner&a."
+  changed: "&aSpawner changed to &e{type}&a."
+  no-egg-permission: "&cYou do not have permission to change spawner types with spawn eggs."
+  no-mine-permission: "&cYou do not have permission to collect spawners."
+  spawner-given: "&aGave &e{amount}x {type} Spawner &ato &e{player}&a."
+  spawner-received: "&aYou received &e{amount}x {type} Spawner&a."
+  invalid-entity: "&cInvalid entity type: &e{type}&c."
+  reloaded: "&aSpawners configuration reloaded successfully."
+  no-permission: "&cYou do not have permission to execute this command."

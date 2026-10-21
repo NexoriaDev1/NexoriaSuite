@@ -1,0 +1,20 @@
+name: NexoriaAntiGrief
+version: '1.0.0'
+main: dev.nexoria.antigrief.NexoriaAntiGriefPlugin
+api-version: '1.21'
+prefix: NexoriaAntiGrief
+author: NexoriaDev
+description: Comprehensive grief prevention against explosions, fire, and mob griefing.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  antigrief:
+    description: Inspect and manage server protection settings
+    aliases: [ ag ]
+    permission: nexoria.antigrief.admin
+
+permissions:
+  nexoria.antigrief.admin:
+    description: Full administration over antigrief settings
+    default: op

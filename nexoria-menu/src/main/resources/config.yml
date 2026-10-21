@@ -1,0 +1,60 @@
+# NexoriaMenu Configuration
+# Interactive GUI engine and server navigator
+
+settings:
+  # Play click sounds when clicking menu buttons
+  sound:
+    enabled: true
+    name: "UI_BUTTON_CLICK"
+    volume: 1.0
+    pitch: 1.2
+
+# Main server navigation menu (/menu)
+main-menu:
+  title: "&8Server Navigation"
+  size: 27
+  items:
+    spawn:
+      material: NETHER_STAR
+      slot: 11
+      name: "&6&lServer Spawn"
+      lore:
+        - "&7Teleport directly to the"
+        - "&7main spawn hub."
+        - ""
+        - "&eClick to teleport!"
+      action: "COMMAND:spawn"
+    rtp:
+      material: COMPASS
+      slot: 13
+      name: "&a&lWilderness RTP"
+      lore:
+        - "&7Teleport to an unexplored"
+        - "&7wilderness coordinate."
+        - ""
+        - "&eClick to random teleport!"
+      action: "COMMAND:rtp"
+    shop:
+      material: GOLD_INGOT
+      slot: 15
+      name: "&e&lServer Market"
+      lore:
+        - "&7Browse the marketplace to"
+        - "&7buy and sell resources."
+        - ""
+        - "&eClick to open shop!"
+      action: "COMMAND:shop"
+    discord:
+      material: BOOK
+      slot: 22
+      name: "&b&lCommunity Discord"
+      lore:
+        - "&7Click to receive the invite link"
+        - "&7to our official Discord server."
+      action: "MESSAGE:&bJoin our Discord: &fhttps://discord.gg/yourserver"
+
+messages:
+  prefix: "&8[&bMenu&8] &r"
+  menu-not-found: "&cMenu not found: &e{name}&c."
+  reloaded: "&aMenu configuration reloaded successfully."
+  no-permission: "&cYou do not have permission to execute this command."

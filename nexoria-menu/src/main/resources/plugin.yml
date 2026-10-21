@@ -1,0 +1,23 @@
+name: NexoriaMenu
+version: '1.0.0'
+main: dev.nexoria.menu.NexoriaMenuPlugin
+api-version: '1.21'
+prefix: NexoriaMenu
+author: NexoriaDev
+description: Interactive inventory GUI framework and server navigation menus.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  menu:
+    description: Open the main server navigation menu
+    aliases: [ nav, navigator ]
+    permission: nexoria.menu.use
+
+permissions:
+  nexoria.menu.use:
+    description: Allows opening server navigation menus
+    default: true
+  nexoria.menu.admin:
+    description: Full administration over menus and reloading
+    default: op

@@ -1,0 +1,15 @@
+name: NexoriaSpawners
+version: '1.0.0'
+main: dev.nexoria.spawners.NexoriaSpawnersPlugin
+api-version: '1.21'
+prefix: NexoriaSpawners
+authors: [ NexoriaDev ]
+description: Silk touch spawner collection, placement and egg management.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+load: POSTWORLD
+
+dependencies:
+  server:
+    NexoriaCore:
+      load: BEFORE
+      required: true

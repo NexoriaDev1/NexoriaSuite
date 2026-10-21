@@ -1,0 +1,23 @@
+name: NexoriaCooldowns
+version: '1.0.0'
+main: dev.nexoria.cooldowns.NexoriaCooldownsPlugin
+api-version: '1.21'
+prefix: NexoriaCooldowns
+author: NexoriaDev
+description: Persistent rate-limiting and command cooldown management engine.
+website: https://github.com/NexoriaDev1/NexoriaSuite
+depend: [ NexoriaCore ]
+
+commands:
+  cooldowns:
+    description: Check or manage active player cooldowns
+    aliases: [ cooldown, cd ]
+    permission: nexoria.cooldowns.admin
+
+permissions:
+  nexoria.cooldowns.admin:
+    description: Full administration over cooldowns
+    default: op
+  nexoria.cooldowns.bypass:
+    description: Bypass all command and action cooldowns
+    default: op
