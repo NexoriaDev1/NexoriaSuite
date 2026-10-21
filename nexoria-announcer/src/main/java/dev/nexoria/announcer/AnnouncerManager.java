@@ -133,6 +133,7 @@ public class AnnouncerManager {
             alertSound = Sound.valueOf("BLOCK_BELL_USE");
         } catch (Exception ignored) {}
 
+        Bukkit.getConsoleSender().sendMessage(formatted);
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.sendMessage(formatted);
             if (alertSound != null) {

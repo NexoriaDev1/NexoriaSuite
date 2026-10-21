@@ -13,22 +13,21 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Moderation command dispatcher handling /ban, /unban, /mute, /unmute, /kick, /punish.
- */
 public final class PunishCommand extends Command implements BasicCommand {
 
     private final NexoriaPunishPlugin plugin;
+    private final String action;
 
-    public PunishCommand(NexoriaPunishPlugin plugin) {
-        super("punish", "Primary command entrypoint for NexoriaPunish", "/punish [status|reload|help]", List.of("nexoriapunish"));
+    public PunishCommand(NexoriaPunishPlugin plugin, String name, String desc, String usage, List<String> aliases, String action) {
+        super(name, desc, usage, aliases);
         this.plugin = plugin;
+        this.action = action;
         setPermission("nexoria.punish.admin");
     }
 
     @Override
     public void execute(CommandSourceStack stack, String[] args) {
-        handleExecution(stack.getSender(), "punish", args);
+        handleExecution(stack.getSender(), this.action, args);
     }
 
     @Override
@@ -48,7 +47,7 @@ public final class PunishCommand extends Command implements BasicCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        return handleExecution(sender, commandLabel, args);
+        return handleExecution(sender, this.action, args);
     }
 
     @Override
@@ -59,7 +58,7 @@ public final class PunishCommand extends Command implements BasicCommand {
     public boolean handleExecution(CommandSender sender, String label, String[] args) {
         PunishAPI api = plugin.getApi();
         if (api == null) {
-            sender.sendMessage("§e[NexoriaPunish] Moderation service is still initializing...");
+            sender.sendMessage(ChatColor.RED + "Punishment service is initializing...");
             return true;
         }
 
@@ -72,100 +71,104 @@ public final class PunishCommand extends Command implements BasicCommand {
         String staff = sender.getName();
         String cmd = label.toLowerCase();
 
-        // Direct /ban command
+        // Direct /ban
         if (cmd.equals("ban")) {
             if (args.length < 1) {
-                sender.sendMessage("§cUsage: /ban <player> [reason]");
+                sender.sendMessage(ChatColor.RED + "Usage: /ban <player> [reason]");
                 return true;
             }
             @SuppressWarnings("deprecation")
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            String targetName = target.getName() != null ? target.getName() : args[0];
             String reason = args.length > 1 ? String.join(" ", Arrays.copyOfRange(args, 1, args.length)) : "Banned by administrator";
-            api.ban(target.getUniqueId(), target.getName() != null ? target.getName() : args[0], staff, reason);
+            api.ban(target.getUniqueId(), targetName, staff, reason);
 
             if (target.isOnline() && target.getPlayer() != null) {
-                String kickMsg = plugin.getConfig().getString("messages.banned-kick", "&cYou are permanently banned from this server.\n&7Reason: &f{reason}\n&7Staff: &e{staff}")
+                String kickMsg = plugin.getConfig().getString("messages.banned-kick", "&cYou are permanently banned.\n&7Reason: &f{reason}\n&7Staff: &e{staff}")
                         .replace("{reason}", reason)
                         .replace("{staff}", staff);
                 target.getPlayer().kickPlayer(ChatColor.translateAlternateColorCodes('&', kickMsg));
             }
 
             String bcast = plugin.getConfig().getString("messages.player-banned", "&e{player} &7was permanently banned by &c{staff}&7. Reason: &f{reason}")
-                    .replace("{player}", target.getName() != null ? target.getName() : args[0])
+                    .replace("{player}", targetName)
                     .replace("{staff}", staff)
                     .replace("{reason}", reason);
             plugin.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', bcast));
             return true;
         }
 
-        // Direct /unban command
+        // Direct /unban
         if (cmd.equals("unban")) {
             if (args.length < 1) {
-                sender.sendMessage("§cUsage: /unban <player>");
+                sender.sendMessage(ChatColor.RED + "Usage: /unban <player>");
                 return true;
             }
             @SuppressWarnings("deprecation")
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            String targetName = target.getName() != null ? target.getName() : args[0];
             boolean ok = api.unban(target.getUniqueId());
             if (ok) {
                 String bcast = plugin.getConfig().getString("messages.player-unbanned", "&e{player} &7was unbanned by &a{staff}&7.")
-                        .replace("{player}", target.getName() != null ? target.getName() : args[0])
+                        .replace("{player}", targetName)
                         .replace("{staff}", staff);
                 plugin.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', bcast));
             } else {
-                sender.sendMessage("§cPlayer is not currently banned.");
+                sender.sendMessage(ChatColor.RED + "Player is not currently banned.");
             }
             return true;
         }
 
-        // Direct /mute command
+        // Direct /mute
         if (cmd.equals("mute")) {
             if (args.length < 1) {
-                sender.sendMessage("§cUsage: /mute <player> [reason]");
+                sender.sendMessage(ChatColor.RED + "Usage: /mute <player> [reason]");
                 return true;
             }
             @SuppressWarnings("deprecation")
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-            String reason = args.length > 1 ? String.join(" ", Arrays.copyOfRange(args, 1, args.length)) : "Muted by administrator";
-            api.mute(target.getUniqueId(), target.getName() != null ? target.getName() : args[0], staff, reason);
+            String targetName = target.getName() != null ? target.getName() : args[0];
+            String reason = args.length > 1 ? String.join(" ", Arrays.copyOfRange(args, 1, args.length)) : "Muted by staff";
+            api.mute(target.getUniqueId(), targetName, staff, reason);
 
             String bcast = plugin.getConfig().getString("messages.player-muted", "&e{player} &7was muted by &c{staff}&7. Reason: &f{reason}")
-                    .replace("{player}", target.getName() != null ? target.getName() : args[0])
+                    .replace("{player}", targetName)
                     .replace("{staff}", staff)
                     .replace("{reason}", reason);
             plugin.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', bcast));
             return true;
         }
 
-        // Direct /unmute command
+        // Direct /unmute
         if (cmd.equals("unmute")) {
             if (args.length < 1) {
-                sender.sendMessage("§cUsage: /unmute <player>");
+                sender.sendMessage(ChatColor.RED + "Usage: /unmute <player>");
                 return true;
             }
             @SuppressWarnings("deprecation")
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            String targetName = target.getName() != null ? target.getName() : args[0];
             boolean ok = api.unmute(target.getUniqueId());
             if (ok) {
                 String bcast = plugin.getConfig().getString("messages.player-unmuted", "&e{player} &7was unmuted by &a{staff}&7.")
-                        .replace("{player}", target.getName() != null ? target.getName() : args[0])
+                        .replace("{player}", targetName)
                         .replace("{staff}", staff);
                 plugin.getServer().broadcastMessage(ChatColor.translateAlternateColorCodes('&', bcast));
             } else {
-                sender.sendMessage("§cPlayer is not currently muted.");
+                sender.sendMessage(ChatColor.RED + "Player is not currently muted.");
             }
             return true;
         }
 
-        // Direct /kick command
+        // Direct /kick
         if (cmd.equals("kick")) {
             if (args.length < 1) {
-                sender.sendMessage("§cUsage: /kick <player> [reason]");
+                sender.sendMessage(ChatColor.RED + "Usage: /kick <player> [reason]");
                 return true;
             }
-            Player target = Bukkit.getPlayerExact(args[0]);
-            if (target == null) {
-                sender.sendMessage("§cPlayer not online.");
+            Player target = Bukkit.getPlayer(args[0]);
+            if (target == null || !target.isOnline()) {
+                sender.sendMessage(ChatColor.RED + "Player is not online.");
                 return true;
             }
             String reason = args.length > 1 ? String.join(" ", Arrays.copyOfRange(args, 1, args.length)) : "Kicked by staff";
@@ -185,40 +188,39 @@ public final class PunishCommand extends Command implements BasicCommand {
             switch (sub) {
                 case "status" -> {
                     var status = api.getStatus();
-                    sender.sendMessage("§8================ §cNexoriaPunish Status §8================");
-                    sender.sendMessage("§7• Operational State: " + (status.active() ? "§aHealthy & Active" : "§cSuspended"));
-                    sender.sendMessage("§7• Total Active Bans: §c" + status.totalBans());
-                    sender.sendMessage("§7• Total Active Mutes: §e" + status.totalMutes());
-                    sender.sendMessage("§7• Platform: §f" + plugin.getServer().getName() + " on Java 25");
-                    sender.sendMessage("§8==========================================================");
+                    sender.sendMessage(ChatColor.DARK_GRAY + "================ " + ChatColor.RED + "NexoriaPunish Status " + ChatColor.DARK_GRAY + "================");
+                    sender.sendMessage(ChatColor.GRAY + "- Operational: " + (status.active() ? ChatColor.GREEN + "Active" : ChatColor.RED + "Suspended"));
+                    sender.sendMessage(ChatColor.GRAY + "- Total Active Bans: " + ChatColor.RED + status.totalBans());
+                    sender.sendMessage(ChatColor.GRAY + "- Total Active Mutes: " + ChatColor.YELLOW + status.totalMutes());
+                    sender.sendMessage(ChatColor.DARK_GRAY + "==========================================================");
                     return true;
                 }
                 case "reload" -> {
                     plugin.reloadConfig();
                     api.loadData();
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                            plugin.getConfig().getString("messages.reloaded", "&a[NexoriaPunish] Punishment database and configuration reloaded.")));
+                            plugin.getConfig().getString("messages.reloaded", "&aPunishment database and configuration reloaded.")));
                     return true;
                 }
             }
         }
 
         // /punish help
-        sender.sendMessage("§8================ §cNexoriaPunish Commands §8================");
-        sender.sendMessage("§7• §c/ban <player> [reason]   §8- §7Permanently ban a player.");
-        sender.sendMessage("§7• §c/unban <player>          §8- §7Unban a previously banned player.");
-        sender.sendMessage("§7• §c/mute <player> [reason]  §8- §7Silence a player from global chat.");
-        sender.sendMessage("§7• §c/unmute <player>        §8- §7Restore chat ability for player.");
-        sender.sendMessage("§7• §c/kick <player> [reason]  §8- §7Disconnect an online player.");
-        sender.sendMessage("§7• §c/punish status           §8- §7View punishment logs and metrics.");
-        sender.sendMessage("§7• §c/punish reload           §8- §7Reload configurations from disk.");
-        sender.sendMessage("§8============================================================");
+        sender.sendMessage(ChatColor.DARK_GRAY + "================ " + ChatColor.RED + "NexoriaPunish Commands " + ChatColor.DARK_GRAY + "================");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/ban <player> [reason]   " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Permanently ban a player.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/unban <player>          " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Unban a previously banned player.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/mute <player> [reason]  " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Silence a player from global chat.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/unmute <player>        " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Restore chat ability for player.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/kick <player> [reason]  " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Disconnect an online player.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/punish status           " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "View active punishment statistics.");
+        sender.sendMessage(ChatColor.GRAY + "- " + ChatColor.RED + "/punish reload           " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "Reload configurations from disk.");
+        sender.sendMessage(ChatColor.DARK_GRAY + "============================================================");
         return true;
     }
 
     private List<String> getSuggestions(String[] args) {
         if (args.length <= 1) {
-            return List.of("status", "reload", "help");
+            return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
         }
         return List.of();
     }
