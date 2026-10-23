@@ -54,7 +54,8 @@ public final class VaultEconomyProvider extends AbstractEconomy {
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return true;
+        if (player == null || player.getUniqueId() == null) return false;
+        return plugin.getApi().hasAccount(player.getUniqueId());
     }
 
     @Override
@@ -89,8 +90,8 @@ public final class VaultEconomyProvider extends AbstractEconomy {
         if (player == null || player.getUniqueId() == null) {
             return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Player cannot be null");
         }
-        if (amount < 0) {
-            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative amount");
+        if (amount < 0 || Double.isNaN(amount) || Double.isInfinite(amount)) {
+            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot withdraw negative or invalid amount");
         }
         UUID uuid = player.getUniqueId();
         double current = plugin.getApi().getBalance(uuid);
@@ -112,8 +113,8 @@ public final class VaultEconomyProvider extends AbstractEconomy {
         if (player == null || player.getUniqueId() == null) {
             return new EconomyResponse(0, 0, EconomyResponse.ResponseType.FAILURE, "Player cannot be null");
         }
-        if (amount < 0) {
-            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative amount");
+        if (amount < 0 || Double.isNaN(amount) || Double.isInfinite(amount)) {
+            return new EconomyResponse(0, getBalance(player), EconomyResponse.ResponseType.FAILURE, "Cannot deposit negative or invalid amount");
         }
         UUID uuid = player.getUniqueId();
         plugin.getApi().deposit(uuid, amount);

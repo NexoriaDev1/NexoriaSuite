@@ -81,13 +81,21 @@ public final class BalanceCommand extends Command implements BasicCommand {
         }
 
         // /balance <player>
-        @SuppressWarnings("deprecation")
-        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        String targetName = target.getName() != null ? target.getName() : args[0];
+        String targetName = args[0];
+        Player onlineTarget = Bukkit.getPlayer(targetName);
+        OfflinePlayer target = onlineTarget != null ? onlineTarget : Bukkit.getOfflinePlayer(targetName);
+
+        if (!api.hasAccount(target.getUniqueId())) {
+            sender.sendMessage(prefix + ChatColor.translateAlternateColorCodes('&',
+                    plugin.getConfig().getString("messages.player-not-found", "&cPlayer not found.")));
+            return true;
+        }
+
         double bal = api.getBalance(target.getUniqueId());
+        String displayName = target.getName() != null ? target.getName() : targetName;
 
         String msg = plugin.getConfig().getString("messages.balance-other", "&7{player}'s balance: &a{balance}")
-                .replace("{player}", targetName)
+                .replace("{player}", displayName)
                 .replace("{balance}", api.format(bal));
         sender.sendMessage(prefix + ChatColor.translateAlternateColorCodes('&', msg));
         return true;

@@ -9,16 +9,15 @@ import org.bukkit.plugin.ServicePriority;
  */
 public final class VaultHook {
 
-    private static boolean registered = false;
+    private static VaultEconomyProvider provider = null;
 
     public static synchronized void register(NexoriaEconomyPlugin plugin) {
-        if (registered) return;
+        if (provider != null) return;
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) return;
 
         try {
-            VaultEconomyProvider provider = new VaultEconomyProvider(plugin);
+            provider = new VaultEconomyProvider(plugin);
             Bukkit.getServicesManager().register(Economy.class, provider, plugin, ServicePriority.Highest);
-            registered = true;
             plugin.getLogger().info("Successfully registered NexoriaEconomy as Vault Economy provider.");
         } catch (Throwable t) {
             plugin.getLogger().warning("Could not register Vault provider: " + t.getMessage());
@@ -26,14 +25,14 @@ public final class VaultHook {
     }
 
     public static synchronized void unregister(NexoriaEconomyPlugin plugin) {
-        if (!registered) return;
+        if (provider == null) return;
         try {
-            Bukkit.getServicesManager().unregister(Economy.class, plugin);
-            registered = false;
+            Bukkit.getServicesManager().unregisterAll(plugin);
+            provider = null;
         } catch (Throwable ignored) {}
     }
 
     public static boolean isRegistered() {
-        return registered;
+        return provider != null;
     }
 }

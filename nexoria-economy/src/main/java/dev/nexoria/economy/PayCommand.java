@@ -83,7 +83,7 @@ public final class PayCommand extends Command implements BasicCommand {
             return true;
         }
 
-        Player target = Bukkit.getPlayerExact(args[0]);
+        Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
             player.sendMessage(prefix + ChatColor.translateAlternateColorCodes('&',
                     plugin.getConfig().getString("messages.player-not-found", "&cPlayer not found.")));
@@ -96,17 +96,20 @@ public final class PayCommand extends Command implements BasicCommand {
             return true;
         }
 
-        double amount;
+        double rawAmount;
         try {
-            amount = Double.parseDouble(args[1]);
+            rawAmount = Double.parseDouble(args[1]);
         } catch (NumberFormatException e) {
             player.sendMessage(prefix + ChatColor.translateAlternateColorCodes('&',
                     plugin.getConfig().getString("messages.invalid-amount", "&cInvalid amount specified.")));
             return true;
         }
 
-        if (amount <= 0 || Double.isNaN(amount) || Double.isInfinite(amount)) {
-            player.sendMessage(prefix + "§cAmount must be greater than zero.");
+        double amount = api.round(rawAmount);
+        double minPay = api.getMinPayAmount();
+
+        if (amount <= 0 || Double.isNaN(amount) || Double.isInfinite(amount) || amount < minPay) {
+            player.sendMessage(prefix + "§cAmount must be at least " + api.format(minPay) + ".");
             return true;
         }
 
@@ -117,7 +120,12 @@ public final class PayCommand extends Command implements BasicCommand {
             return true;
         }
 
-        api.withdraw(player.getUniqueId(), amount);
+        boolean withdrawn = api.withdraw(player.getUniqueId(), amount);
+        if (!withdrawn) {
+            player.sendMessage(prefix + "§cTransaction failed. Please try again.");
+            return true;
+        }
+
         api.deposit(target.getUniqueId(), amount);
 
         String sentMsg = plugin.getConfig().getString("messages.pay-sent", "&7You sent &a{amount} &7to &e{player}&7.")

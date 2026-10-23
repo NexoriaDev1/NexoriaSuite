@@ -9,9 +9,6 @@ website: https://modrinth.com/plugin/nexoria-economy
 
 dependencies:
   server:
-    NexoriaCore:
-      load: BEFORE
-      required: true
     Vault:
       load: BEFORE
       required: false
@@ -41,5 +38,5 @@ permissions:
     description: Allows sending money to others
     default: true
   nexoria.economy.admin:
-    description: Allows giving, taking, and setting player balances
+    description: Allows giving, taking, setting, and resetting player balances
     default: op

@@ -6,7 +6,6 @@ folia-supported: true
 author: NexoriaStudio
 description: "Lightweight and fast economy solution with Vault provider support."
 website: https://modrinth.com/plugin/nexoria-economy
-depend: [NexoriaCore]
 softdepend: [Vault]
 
 commands:
@@ -34,5 +33,5 @@ permissions:
     description: Allows sending money to others
     default: true
   nexoria.economy.admin:
-    description: Allows giving, taking, and setting player balances
+    description: Allows giving, taking, setting, and resetting player balances
     default: op
