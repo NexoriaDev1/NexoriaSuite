@@ -1,3 +1,33 @@
+# Unreleased modules kept locally
+nexoria-adventure/
+nexoria-afk/
+nexoria-announcer/
+nexoria-antigrief/
+nexoria-chat/
+nexoria-claims/
+nexoria-combat/
+nexoria-cooldowns/
+nexoria-customcraft/
+nexoria-customitems/
+nexoria-database/
+nexoria-holograms/
+nexoria-loot/
+nexoria-menu/
+nexoria-metrics/
+nexoria-nbt/
+nexoria-particles/
+nexoria-punish/
+nexoria-quests/
+nexoria-rtp/
+nexoria-scoreboard/
+nexoria-shops/
+nexoria-skills/
+nexoria-spawners/
+nexoria-sync/
+nexoria-vanish/
+nexoria-warps/
+nexoria-worldguard-bridge/
+
 # Metadata and internal utility files
 **/MODRINTH_METADATA.md
 MODRINTH_MASTER_CATALOG.md

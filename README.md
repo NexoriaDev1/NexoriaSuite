@@ -1,21 +1,29 @@
 # NexoriaSuite
 
-Modular, high-performance plugin ecosystem and developer APIs for Paper, Purpur, and Folia servers running on Java 25+.
+High-performance, modular Minecraft server plugin ecosystem built for modern Paper, Purpur, and Folia architectures running on Java 25 LTS.
 
 ---
 
-## Ecosystem Modules
+## Active Modules
 
 ### 1. NexoriaCore
-* **Type**: Core Foundation / Library
-* **Description**: Asynchronous task framework and Folia multi-threaded regional scheduler bridge.
-* **Module Path**: `nexoria-core/`
+- **Type**: Core Framework & Shared Library
+- **Path**: `nexoria-core/`
+- **Description**: Central service registry and Folia-compatible task scheduling bridge. Provides foundational utilities for the Nexoria ecosystem.
 
 ### 2. NexoriaEconomy
-* **Type**: Economy Engine
-* **Description**: High-throughput multi-currency system with native Vault provider support and atomic transaction safety.
-* **Module Path**: `nexoria-economy/`
-* **Dependencies**: Requires `NexoriaCore`.
+- **Type**: Currency & Economy Engine
+- **Path**: `nexoria-economy/`
+- **Description**: Standalone economy provider with native Vault registration, transactional safety, paginated leaderboard (`/baltop`), and administrative tools.
+- **Dependencies**: [Vault](https://www.spigotmc.org/resources/vault.34315/)
+
+---
+
+## Upcoming Releases
+
+The following modules are currently in development and testing:
+- **NexoriaShops**: Interactive chest and GUI merchant shops integrated with Vault.
+- Additional gameplay, protection, and utility modules will be published progressively.
 
 ---
 
@@ -24,13 +32,18 @@ Modular, high-performance plugin ecosystem and developer APIs for Paper, Purpur,
 This project uses Gradle with Java 25 toolchains.
 
 ```bash
+# Clone the repository
+git clone https://github.com/NexoriaDev1/NexoriaSuite.git
+cd NexoriaSuite
+
+# Build active modules
 ./gradlew build
 ```
 
-Compiled `.jar` binaries will be output to their respective build directories.
+Compiled `.jar` binaries are output to each module's `build/libs/` directory.
 
 ---
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**. Redistribution and modifications require attribution and must remain open source under the same license terms.
+This project is licensed under the [MIT License](LICENSE).
